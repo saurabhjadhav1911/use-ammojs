@@ -1,5 +1,5 @@
 import { Object3D, Quaternion, Vector3 } from "three";
-import { MutableRefObject } from "react";
+import { RefObject } from "react";
 
 export type UUID = string;
 
@@ -163,7 +163,7 @@ export type SoftBodyRigidBodyAnchorRef = Omit<
   SoftBodyRigidBodyAnchor,
   "rigidBodyUUID"
 > & {
-  rigidBodyRef: MutableRefObject<Object3D | undefined>;
+  rigidBodyRef: RefObject<Object3D>;
 };
 
 export type SoftBodyAnchor = SoftBodyWorldAnchor | SoftBodyRigidBodyAnchor;

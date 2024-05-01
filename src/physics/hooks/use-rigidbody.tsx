@@ -1,18 +1,9 @@
-import { Euler, MathUtils, Object3D, Quaternion, Vector3 } from "three";
-import React, { MutableRefObject, useEffect, useRef, useState } from "react";
+import { Euler, EulerOrder, MathUtils, Object3D, Quaternion, Vector3 } from "three";
+import React, { RefObject, useEffect, useRef, useState } from "react";
 import { useAmmoPhysicsContext } from "../physics-context";
-import {
-  BodyConfig,
-  BodyType,
-  ShapeConfig,
-  ShapeType,
-} from "../../three-ammo/lib/types";
+import { BodyConfig, BodyType, ShapeConfig, ShapeType, } from "../../three-ammo/lib/types";
 import { createRigidBodyApi, RigidbodyApi } from "../api/rigidbody-api";
-import {
-  isEuler,
-  isQuaternion,
-  isVector3,
-} from "../../three-ammo/worker/utils";
+import { isEuler, isQuaternion, isVector3, } from "../../three-ammo/worker/utils";
 
 type UseRigidBodyOptions = Omit<BodyConfig, "type"> & {
   shapeType: ShapeType;
@@ -29,15 +20,15 @@ type UseRigidBodyOptions = Omit<BodyConfig, "type"> & {
   rotation?:
     | Euler
     | [number, number, number]
-    | [number, number, number, string]
+    | [number, number, number, EulerOrder]
     | Quaternion;
 };
 
-export function useRigidBody(
+export function useRigidBody<T extends Object3D = Object3D>(
   options: UseRigidBodyOptions | (() => UseRigidBodyOptions),
   object3D?: Object3D
-): [MutableRefObject<Object3D | undefined>, RigidbodyApi] {
-  const ref = useRef<Object3D>();
+): [RefObject<T>, RigidbodyApi] {
+  const ref = useRef<T>(null);
 
   const physicsContext = useAmmoPhysicsContext();
   const { addRigidBody, removeRigidBody } = physicsContext;
@@ -79,10 +70,10 @@ export function useRigidBody(
         objectToUse.rotation.setFromQuaternion(rotation);
       } else if (rotation.length === 3 || rotation.length === 4) {
         objectToUse.rotation.set(
-          rotation[0],
-          rotation[1],
-          rotation[2],
-          rotation[3]
+            rotation[0],
+            rotation[1],
+            rotation[2],
+            rotation[3]
         );
       } else {
         throw new Error("invalid rotation: expected Euler or EulerTuple");

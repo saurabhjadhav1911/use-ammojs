@@ -1,5 +1,5 @@
 import { MathUtils, Mesh } from "three";
-import React, { MutableRefObject, useEffect, useRef, useState } from "react";
+import React, { RefObject, useEffect, useRef, useState } from "react";
 import { useAmmoPhysicsContext } from "../physics-context";
 import { SoftBodyAnchorRef, SoftBodyConfig } from "../../three-ammo/lib/types";
 import { createSoftbodyApi, SoftbodyApi } from "../api/softbody-api";
@@ -9,11 +9,11 @@ type UseSoftBodyOptions = Omit<SoftBodyConfig, "anchors"> & {
   anchors?: SoftBodyAnchorRef[];
 };
 
-export function useSoftBody(
+export function useSoftBody<T extends Mesh = Mesh>(
   options: UseSoftBodyOptions | (() => UseSoftBodyOptions),
-  mesh?: Mesh
-): [MutableRefObject<Mesh | undefined>, SoftbodyApi] {
-  const ref = useRef<Mesh>();
+  mesh?: T
+): [RefObject<T>, SoftbodyApi] {
+  const ref = useRef<T>(null);
 
   const physicsContext = useAmmoPhysicsContext();
   const { addSoftBody, removeSoftBody } = physicsContext;

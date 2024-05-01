@@ -1,4 +1,4 @@
-import { MutableRefObject, useEffect, useState } from "react";
+import { RefObject, useEffect, useState } from "react";
 import { useAmmoPhysicsContext } from "../physics-context";
 import { MathUtils, Object3D } from "three";
 import {
@@ -9,13 +9,13 @@ import {
 } from "../../three-ammo/lib/types";
 
 type SingleBodyConstraintRefs = {
-  bodyARef: MutableRefObject<Object3D | undefined>;
+  bodyARef: RefObject<Object3D>;
   bodyBRef?: undefined;
 };
 
 type TwoBodyConstraintRefs = {
-  bodyARef: MutableRefObject<Object3D | undefined>;
-  bodyBRef: MutableRefObject<Object3D | undefined>;
+  bodyARef: RefObject<Object3D>;
+  bodyBRef: RefObject<Object3D>;
 };
 
 type UseConstraintProps = CommonConstraintConfig &

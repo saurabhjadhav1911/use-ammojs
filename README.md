@@ -97,9 +97,11 @@ Automatically parse Shape parameters from the three Mesh (courtesy of [three-to-
 ```tsx
 import { Box } from "@react-three/drei";
 import { useRigidBody, ShapeType } from "use-ammojs";
+import { Mesh } from "three";
 
 function MyBox() {
-  const [ref] = useRigidBody(() => ({
+  // If you need a ref with a narrower type than Object3D, provide a generic argument here
+  const [ref] = useRigidBody<Mesh>(() => ({
     mass: 1,
     position: [0, 2, 4],
     shapeType: ShapeType.BOX,

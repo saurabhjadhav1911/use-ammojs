@@ -1,11 +1,12 @@
 [![npm](https://img.shields.io/npm/v/use-ammojs?color=%23F69500)](https://www.npmjs.com/package/use-ammojs)
-[![npm](https://img.shields.io/badge/bulletphysics%20(fork)-3.17-%23F69500)](https://github.com/notrabs/ammo.js/tree/bullet_submodule)
+[![npm](<https://img.shields.io/badge/bulletphysics%20(fork)-3.17-%23F69500>)](https://github.com/notrabs/ammo.js/tree/bullet_submodule)
 ![npm](https://img.shields.io/npm/types/use-ammojs?label=%20)
+
 # use-ammojs
 
 _Fast_ Physics hooks for use with [react-three-fiber](https://github.com/pmndrs/react-three-fiber).
 
-Achieved by running the [ammo.js](https://github.com/kripken/ammo.js/) physics library in a web-worker. 
+Achieved by running the [ammo.js](https://github.com/kripken/ammo.js/) physics library in a web-worker.
 Ammo itself is a WebAssembly wrapper around the powerful [Bullet Physics](http://www.bulletphysics.org/) engine.
 Data is synced with SharedArrayBuffers having minimal impact on the main thread.
 
@@ -283,3 +284,9 @@ module.exports = {
 2. Run `yarn link use-ammojs` in your project's directory
 3. Run `yarn start` in use-ammojs to start the development bundler
 4. Build and run your project as usual
+
+mklink /D E:\Work\Upwork\ParametricClothes\ReactThreeSoftBody\src\react E:\Work\Upwork\ParametricClothes\ReactThreeSoftBody\node_modules\react
+
+mklink /D E:\Work\Upwork\ParametricClothes\ReactThreeSoftBody\src\@react-three\fiber E:\Work\Upwork\ParametricClothes\ReactThreeSoftBody\node_modules\@react-three\fiber
+
+mklink /D E:\Work\Upwork\ParametricClothes\ReactThreeSoftBody\src\three E:\Work\Upwork\ParametricClothes\ReactThreeSoftBody\node_modules\three

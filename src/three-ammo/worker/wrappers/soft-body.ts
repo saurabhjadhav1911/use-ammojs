@@ -158,6 +158,14 @@ export class SoftBody {
       this.physicsBody.setActivationState(config.activationState);
     }
 
+    if (config.pressure !== undefined) {
+      if (this.type !== SoftBodyType.ROPE) {
+        const sbConfig = this.physicsBody.get_m_cfg();
+        sbConfig.set_kPR(config.pressure);
+        console.log(config.pressure,'config.pressure')
+      }
+      }
+
     if (config.anchors) {
       const existingAnchors = this.physicsBody.get_m_anchors();
       for (let i = 0; i < existingAnchors.size(); i++) {
@@ -198,6 +206,33 @@ export class SoftBody {
 
       Ammo.destroy(tmpVec3);
     }
+  }
+
+  removeAnchors() {
+
+      const existingAnchors = this.physicsBody.get_m_anchors();
+      console.log(this.physicsBody)
+
+      for (let i = 0; i < existingAnchors.size(); i++) {
+        Ammo.destroy(existingAnchors.at(i));
+        console.log('destroying anchor')
+      }
+      existingAnchors.clear();
+
+      // this.physicsBody.setTotalMass(this.mass, false);
+
+      // const tmpVec3 = new Ammo.btVector3();
+
+      // toBtVector3(tmpVec3, anchor.localOffset ?? ZERO);
+
+      // const an = existingAnchors.at(existingAnchors.size() - 1);
+      // an.set_m_local(tmpVec3);
+
+      // // Pop and push to update because at() returns a copy
+      // existingAnchors.pop_back();
+      // existingAnchors.push_back(an);
+         
+    
   }
 
   copyStateToBuffer() {

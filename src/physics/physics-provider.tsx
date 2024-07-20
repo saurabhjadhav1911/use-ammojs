@@ -1,14 +1,29 @@
-import { BufferAttribute, BufferGeometry, DynamicDrawUsage, Mesh, Object3D, Vector3, } from "three";
+import {
+  BufferAttribute,
+  BufferGeometry,
+  DynamicDrawUsage,
+  Mesh,
+  Object3D,
+  Vector3,
+} from "three";
 import React, { PropsWithChildren, useEffect, useRef, useState } from "react";
 import { DefaultBufferSize } from "ammo-debug-drawer";
-import { AmmoPhysicsContext, PhysicsPerformanceInfo, PhysicsState, ShapeDescriptor, } from "./physics-context";
+import {
+  AmmoPhysicsContext,
+  PhysicsPerformanceInfo,
+  PhysicsState,
+  ShapeDescriptor,
+} from "./physics-context";
 import {
   allocateCompatibleBuffer,
   AmmoDebugOptions,
   ammoDebugOptionsToNumber,
   isSharedArrayBufferSupported,
 } from "../utils/utils";
-import { createAmmoWorker, WorkerHelpers, } from "../three-ammo/lib/worker-helper";
+import {
+  createAmmoWorker,
+  WorkerHelpers,
+} from "../three-ammo/lib/worker-helper";
 import {
   BodyConfig,
   BufferState,
@@ -271,7 +286,7 @@ export function Physics({
           // console.log("before merge ", mesh.geometry.attributes.position.count);
           mesh.geometry.deleteAttribute("normal");
           mesh.geometry.deleteAttribute("uv");
-          mesh.geometry = mergeVertices(mesh.geometry);
+          // mesh.geometry = mergeVertices(mesh.geometry);
           mesh.geometry.computeVertexNormals();
           // console.log("after merge ", mesh.geometry.attributes.position.count);
 

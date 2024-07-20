@@ -52,6 +52,7 @@ export function useSoftBody(
     });
 
     return () => {
+      console.log("removing softbody");
       removeSoftBody(bodyUUID);
     };
   }, []);

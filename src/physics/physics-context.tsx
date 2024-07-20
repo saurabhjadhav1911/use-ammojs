@@ -34,6 +34,8 @@ export interface PhysicsState {
     options?: BodyConfig
   );
   removeRigidBody(uuid: UUID);
+
+  updateSoftBodyConfig(uuid: UUID, options: SoftBodyConfig);
   addSoftBody(uuid: UUID, mesh: Object3D, options?: SoftBodyConfig);
   removeSoftBody(uuid: UUID);
   rayTest(options: RaycastOptions): Promise<RaycastHit[]>;
@@ -82,12 +84,21 @@ export interface AmmoPhysicsContext {
 
   resetDynamicBody(uuid: UUID);
 
+  updateSoftBodyConfig(uuid: UUID, options: SoftBodyConfig);
+
   activateBody(uuid: UUID);
 
   bodySetMotionState(uuid: UUID, position?: Vector3, rotation?: Quaternion);
   bodySetLinearVelocity(uuid: UUID, velocity: Vector3);
   bodyApplyImpulse(uuid: UUID, impulse: Vector3, relativeOffset?: Vector3);
-  bodyApplyForce(uuid: UUID, force: Vector3, relativeOffset?: Vector3);
+  bodyApplyForce(
+    uuid: UUID,
+    force: Vector3,
+    relativeOffset?: Vector3,
+    nodeIndex?: Number
+  );
+
+  removeSoftBodyAnchors(uuid: UUID);
 
   // Applies an (local) offset to all shapes of the rigidbody, without moving its origin
   bodySetShapesOffset(uuid: string, offset: Vector3);

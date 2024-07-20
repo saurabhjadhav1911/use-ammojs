@@ -34,6 +34,7 @@ export function createRigidBodyApi(
     },
 
     setPosition(position: Vector3) {
+      // console.log("setting position");
       physicsContext.bodySetMotionState(bodyUUID, position);
     },
 

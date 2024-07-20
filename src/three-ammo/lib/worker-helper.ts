@@ -176,6 +176,22 @@ export function WorkerHelpers(ammoWorker: Worker) {
       });
     },
 
+    removeSoftBodyAnchors(uuid: UUID) {
+      ammoWorker.postMessage({
+        type: MessageType.REMOVE_SOFTBODY_ANCHORS,
+        uuid,
+      });
+    },
+
+    updateSoftBodyConfig(uuid: UUID, options: SoftBodyConfig) {
+      ammoWorker.postMessage({
+        type: MessageType.UPDATE_SOFTBODY_CONFIG,
+        uuid,
+        options,
+      });
+    },
+
+
     bodySetShapesOffset(bodyUuid, offset) {
       ammoWorker.postMessage({
         type: MessageType.SET_SHAPES_OFFSET,
@@ -265,21 +281,33 @@ export function WorkerHelpers(ammoWorker: Worker) {
       }
     },
 
-    bodyApplyForce(uuid, force, relativeOffset) {
-      if (!relativeOffset) {
-        ammoWorker.postMessage({
-          type: MessageType.APPLY_CENTRAL_FORCE,
-          uuid,
-          force,
-        });
+    bodyApplyForce(uuid, force, relativeOffset,nodeIndex) {
+      
+      if (!nodeIndex) {
+        if (!relativeOffset) {
+          ammoWorker.postMessage({
+            type: MessageType.APPLY_CENTRAL_FORCE,
+            uuid,
+            force,
+          });
+        } else {
+          ammoWorker.postMessage({
+            type: MessageType.APPLY_FORCE,
+            uuid,
+            force,
+            relativeOffset,
+          });
+        }
       } else {
         ammoWorker.postMessage({
           type: MessageType.APPLY_FORCE,
           uuid,
           force,
           relativeOffset,
+          nodeIndex
         });
       }
+
     },
 
     setSimulationSpeed(simulationSpeed: number) {

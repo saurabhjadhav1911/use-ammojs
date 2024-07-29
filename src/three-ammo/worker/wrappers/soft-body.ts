@@ -59,6 +59,8 @@ export class SoftBody {
 
     this.numVerts = buffers.vertexFloatArray.length / 3;
 
+    // this.node_mass = this.mass/this.numVerts;
+
     // console.log("numVerts", this.numVerts);
     // console.log("numFaces", buffers.indexIntArray.length / 3);
     // console.log("indices", buffers.indexIntArray);
@@ -168,7 +170,9 @@ export class SoftBody {
 
     if (config.anchors) {
       const existingAnchors = this.physicsBody.get_m_anchors();
+      console.log('existingAnchors',this.physicsBody,existingAnchors.size());
       for (let i = 0; i < existingAnchors.size(); i++) {
+        console.log('destroying anchor at ',i);
         Ammo.destroy(existingAnchors.at(i));
       }
       existingAnchors.clear();
@@ -211,13 +215,21 @@ export class SoftBody {
   removeAnchors() {
 
       const existingAnchors = this.physicsBody.get_m_anchors();
-      console.log(this.physicsBody)
+      const existingNodeAnchors = this.physicsBody.get_m_nodes();
 
       for (let i = 0; i < existingAnchors.size(); i++) {
         Ammo.destroy(existingAnchors.at(i));
         console.log('destroying anchor')
       }
       existingAnchors.clear();
+
+      for (let i = 0; i < existingNodeAnchors.size(); i++) {
+        // Ammo.destroy(existingNodeAnchors.at(i));
+        // console.log('destroying node anchor')
+        this.physicsBody.setMass(i, this.mass/this.numVerts);
+
+      }
+      // existingNodeAnchors.clear();
 
       // this.physicsBody.setTotalMass(this.mass, false);
 
@@ -231,6 +243,33 @@ export class SoftBody {
       // // Pop and push to update because at() returns a copy
       // existingAnchors.pop_back();
       // existingAnchors.push_back(an);
+
+      // for (const anchor of config.anchors) {
+      //   if (isSoftBodyRigidBodyAnchor(anchor)) {
+      //     if (bodies[anchor.rigidBodyUUID]) {
+      //       this.physicsBody.appendAnchor(
+      //         anchor.nodeIndex,
+      //         bodies[anchor.rigidBodyUUID].physicsBody,
+      //         anchor.disableCollisionBetweenLinkedBodies ?? false,
+      //         anchor.influence ?? 1
+      //       );
+
+      //       const existingAnchors = this.physicsBody.get_m_anchors();
+      //       toBtVector3(tmpVec3, anchor.localOffset ?? ZERO);
+
+      //       const an = existingAnchors.at(existingAnchors.size() - 1);
+      //       an.set_m_local(tmpVec3);
+
+      //       // Pop and push to update because at() returns a copy
+      //       existingAnchors.pop_back();
+      //       existingAnchors.push_back(an);
+      //     } else {
+      //       console.warn("rigid body needed for anchor not found: ", anchor);
+      //     }
+      //   } else {
+      //     this.physicsBody.setMass(anchor.nodeIndex, 0);
+      //   }
+      // }
          
     
   }
